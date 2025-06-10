@@ -236,6 +236,13 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - **Canvas drawing:** Add the ability to draw on a canvas mathematical expressions, geometry, graphs, etc.
 - **Unit/Integration/E2E Testing:** Add unit, integration, and E2E tests
 
----
+## 📬 Contact
+For questions or feedback, please reach out via:
 
-**Showcase your AI engineering skills:** This project is designed to be a portfolio-quality, production-grade example of modern AI application development. Contributions and feedback are welcome!
+- **GitHub:** [EvanGks](https://github.com/EvanGks)
+- **X (Twitter):** [@Evan6471133782](https://x.com/Evan6471133782)
+- **LinkedIn:** [Evangelos Gakias](https://www.linkedin.com/in/evangelos-gakias-346a9072)
+- **Kaggle:** [evangelosgakias](https://www.kaggle.com/evangelosgakias)
+- **Email:** [evangks88@gmail.com](mailto:evangks88@gmail.com)
+
+---
