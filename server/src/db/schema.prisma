@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Chat {
+  id          Int       @id @default(autoincrement())
+  title       String    @default("New Chat")
+  create_time DateTime  @default(now())
+  
+  messages    Message[]
+  
+  @@map("chats")
+}
+
+model FileMetadata {
+  id                         String   @id
+  original_filename          String
+  content_type               String
+  size                       Int
+  local_disk_path            String   @unique
+  upload_timestamp          DateTime @default(now())
+  processing_method         String   // "inline" or "files_api"
+  
+  // Fields for Gemini Files API specifics
+  gemini_api_file_id        String?  
+  gemini_api_upload_timestamp DateTime?
+  gemini_api_expiry_timestamp DateTime?
+  
+  // Many-to-many relationship with messages
+  messages                  MessageFileLink[]
+  
+  @@map("file_metadata")
+}
+
+model Message {
+  id       Int      @id @default(autoincrement())
+  chat_id  Int
+  role     String   // "user" or "model" or "assistant"
+  content  String
+  timestamp DateTime @default(now())
+  
+  chat     Chat     @relation(fields: [chat_id], references: [id], onDelete: Cascade)
+  
+  // Many-to-many relationship with files
+  files    MessageFileLink[]
+  
+  @@map("messages")
+}
+
+model MessageFileLink {
+  message_id       Int
+  file_metadata_id String
+  
+  message          Message      @relation(fields: [message_id], references: [id], onDelete: Cascade)
+  file_metadata    FileMetadata @relation(fields: [file_metadata_id], references: [id], onDelete: Cascade)
+  
+  @@id([message_id, file_metadata_id])
+  @@map("message_file_link")
+}
